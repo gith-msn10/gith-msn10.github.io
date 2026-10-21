@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>Marcelinho | Frontend Developer, Enugu</title>
+  <meta name="description" content="Marcelinho is a Frontend Developer in Enugu, Nigeria, building fast, modern websites for businesses and growing into Full Stack.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --card: #15151f;
+      --card-2: #1b1b28;
+      --purple: #7c3aed;
+      --blue: #38bdf8;
+      --text: #ffffff;
+      --gray: #a1a1b5;
+      --line: rgba(255, 255, 255, .08);
+      --grad: linear-gradient(135deg, var(--purple), var(--blue));
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; scroll-padding-top: 84px; }
+    body { font-family: 'Poppins', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; overflow-x: hidden; }
+    a { color: inherit; text-decoration: none; }
+    :focus-visible { outline: 3px solid var(--blue); outline-offset: 3px; border-radius: 6px; }
+    .container { width: min(1160px, 92%); margin-inline: auto; }
+    section { padding: 110px 0; position: relative; }
+    h1, h2 { font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 800; line-height: 1.1; letter-spacing: -.03em; }
+    h2 { margin-bottom: 14px; }
+    .grad-text { background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .section-intro { color: var(--gray); max-width: 50ch; font-size: 1.05rem; margin-bottom: 56px; }
+
+    /* Fade-up (JS adds .visible) */
+    .fade-up { opacity: 0; transform: translateY(32px); transition: opacity .8s ease, transform .8s ease; transition-delay: var(--d, 0s); }
+    .fade-up.visible { opacity: 1; transform: none; }
+
+    /* Navbar */
+    header { position: sticky; top: 0; z-index: 100; background: rgba(10, 10, 15, .6); backdrop-filter: blur(16px) saturate(160%); -webkit-backdrop-filter: blur(16px) saturate(160%); border-bottom: 1px solid var(--line); }
+    nav { display: flex; align-items: center; justify-content: space-between; height: 72px; }
+    .logo { font-size: 1.9rem; font-weight: 800; background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .nav-links { display: flex; gap: 36px; list-style: none; }
+    .nav-links a { color: var(--gray); font-weight: 500; font-size: .95rem; position: relative; padding: 4px 0; transition: color .25s; }
+    .nav-links a::after { content: ""; position: absolute; left: 0; bottom: -2px; width: 0; height: 2px; background: var(--grad); transition: width .3s; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-links a:hover::after { width: 100%; }
+    .menu-btn { display: none; width: 44px; height: 44px; background: none; border: 0; cursor: pointer; position: relative; }
+    .menu-btn span { position: absolute; left: 10px; width: 24px; height: 2px; background: var(--text); border-radius: 2px; transition: transform .3s, opacity .3s, top .3s; }
+    .menu-btn span:nth-child(1) { top: 14px; }
+    .menu-btn span:nth-child(2) { top: 21px; }
+    .menu-btn span:nth-child(3) { top: 28px; }
+    .menu-btn.open span:nth-child(1) { top: 21px; transform: rotate(45deg); }
+    .menu-btn.open span:nth-child(2) { opacity: 0; }
+    .menu-btn.open span:nth-child(3) { top: 21px; transform: rotate(-45deg); }
+
+    /* Buttons */
+    .btn { display: inline-flex; align-items: center; gap: 10px; padding: 15px 32px; border-radius: 14px; font: 600 .98rem 'Poppins', sans-serif; border: 0; cursor: pointer; color: #fff; transition: transform .3s, box-shadow .3s; }
+    .btn-primary { background: var(--grad); box-shadow: 0 8px 24px rgba(124, 58, 237, .3); }
+    .btn-primary:hover { transform: scale(1.05); box-shadow: 0 10px 40px rgba(124, 58, 237, .6), 0 0 60px rgba(56, 189, 248, .3); }
+    .btn-ghost { background: transparent; border: 1.5px solid rgba(255, 255, 255, .18); }
+    .btn-ghost:hover { transform: scale(1.05); border-color: var(--blue); box-shadow: 0 0 30px rgba(56, 189, 248, .25); }
+
+    /* Hero */
+    .hero { padding: 100px 0 120px; overflow: hidden; }
+    .hero-grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: 64px; align-items: center; }
+    .hero h1 { margin-bottom: 24px; }
+    .hero p { color: var(--gray); font-size: 1.15rem; max-width: 46ch; margin-bottom: 40px; }
+    .cta-row { display: flex; flex-wrap: wrap; gap: 16px; }
+    .hero-visual { position: relative; }
+    .glow { position: absolute; inset: -12%; background: var(--grad); filter: blur(80px); opacity: .45; border-radius: 50%; animation: pulse 6s ease-in-out infinite; z-index: 0; }
+    @keyframes pulse { 0%, 100% { transform: scale(.92); opacity: .35; } 50% { transform: scale(1.08); opacity: .6; } }
+    .code-card { position: relative; z-index: 1; background: rgba(21, 21, 31, .92); border: 1px solid rgba(255, 255, 255, .12); border-radius: 22px; overflow: hidden; font-family: ui-monospace, 'Fira Code', Consolas, monospace; font-size: .88rem; color: #cfd3ea; animation: float 7s ease-in-out infinite; }
+    @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+    .code-bar { display: flex; gap: 8px; padding: 16px 20px; border-bottom: 1px solid var(--line); }
+    .code-bar i { width: 12px; height: 12px; border-radius: 50%; background: #ff5f57; }
+    .code-bar i:nth-child(2) { background: #febc2e; }
+    .code-bar i:nth-child(3) { background: #28c840; }
+    .code-body { padding: 24px 26px 30px; line-height: 1.95; white-space: pre; overflow-x: auto; }
+    .k { color: #c4a1ff; } .s { color: #7ee0a8; } .f { color: #7dd3fc; } .c { color: #6b6b86; }
+
+    /* About */
+    .about-grid { display: grid; grid-template-columns: .85fr 1.15fr; gap: 72px; align-items: center; }
+    .photo-wrap { position: relative; max-width: 400px; }
+    .photo-wrap::before { content: ""; position: absolute; inset: -3px; border-radius: 28px; background: var(--grad); filter: blur(22px); opacity: .5; }
+    .photo-frame { position: relative; aspect-ratio: 4 / 5; border-radius: 26px; overflow: hidden; background: var(--card); border: 1px solid rgba(255, 255, 255, .12); display: grid; place-items: center; color: rgba(255, 255, 255, .25); font-size: 5.5rem; }
+    .photo-frame img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .about-text h2 { font-size: clamp(2.2rem, 4vw, 3.2rem); }
+    .about-text p { color: var(--gray); font-size: 1.1rem; max-width: 56ch; margin-top: 18px; }
+    .about-meta { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 30px; }
+    .about-meta span { padding: 10px 20px; border-radius: 99px; background: var(--card); border: 1px solid var(--line); font-size: .92rem; font-weight: 500; }
+    .about-meta i { color: var(--blue); margin-right: 8px; }
+
+    /* Projects */
+    .project-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+    .card { position: relative; background: var(--card); border: 1px solid var(--line); border-radius: 20px; overflow: hidden; display: flex; flex-direction: column; transition: transform .4s ease, border-color .4s, box-shadow .4s; }
+    .card:hover { transform: translateY(-8px); border-color: rgba(124, 58, 237, .7); box-shadow: 0 0 0 1px rgba(124, 58, 237, .5), 0 20px 60px rgba(124, 58, 237, .3), 0 0 80px rgba(56, 189, 248, .12); }
+    .card-thumb { aspect-ratio: 16 / 10; background: var(--grad); display: grid; place-items: center; font-size: 3rem; position: relative; overflow: hidden; }
+    .card-thumb::after { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at 30% 20%, rgba(255, 255, 255, .25), transparent 55%); }
+    .card.soon .card-thumb { background: repeating-linear-gradient(45deg, #15151f, #15151f 14px, #1b1b28 14px, #1b1b28 28px); color: #55556e; }
+    .card.soon .card-thumb::after { display: none; }
+    .card-body { padding: 28px; display: flex; flex-direction: column; gap: 14px; flex: 1; }
+    .card h3 { font-size: 1.3rem; font-weight: 700; }
+    .card p { color: var(--gray); font-size: .96rem; }
+    .tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .tags span { font-size: .78rem; font-weight: 600; padding: 4px 14px; border-radius: 99px; background: rgba(124, 58, 237, .15); color: #c4a1ff; border: 1px solid rgba(124, 58, 237, .3); }
+    .card-links { display: flex; gap: 22px; margin-top: auto; padding-top: 10px; font-weight: 600; font-size: .92rem; }
+    .card-links a { color: var(--blue); transition: color .2s; }
+    .card-links a:hover { color: #fff; }
+
+    /* Skills */
+    #skills { background: linear-gradient(180deg, transparent, rgba(124, 58, 237, .06), transparent); }
+    .skills-grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: 32px; align-items: start; }
+    .panel { background: var(--card); border: 1px solid var(--line); border-radius: 22px; padding: 38px; }
+    .panel h3 { font-size: 1.35rem; font-weight: 700; margin-bottom: 26px; }
+    .pills { list-style: none; display: flex; flex-wrap: wrap; gap: 14px; }
+    .pills li { display: flex; align-items: center; gap: 10px; padding: 11px 22px; border-radius: 99px; background: var(--card-2); border: 1px solid rgba(124, 58, 237, .45); font-weight: 500; box-shadow: 0 0 18px rgba(124, 58, 237, .22); transition: transform .3s, box-shadow .3s, border-color .3s; }
+    .pills li:hover { transform: translateY(-3px); border-color: var(--blue); box-shadow: 0 0 28px rgba(56, 189, 248, .5); }
+    .pills i { color: var(--blue); font-size: 1.1rem; }
+    .learning-panel { border-color: rgba(56, 189, 248, .25); }
+    .bar-row + .bar-row { margin-top: 24px; }
+    .bar-head { display: flex; justify-content: space-between; font-weight: 500; margin-bottom: 10px; }
+    .bar-head span:last-child { color: var(--blue); }
+    .bar { height: 10px; background: rgba(255, 255, 255, .08); border-radius: 99px; overflow: hidden; }
+    .bar-fill { height: 100%; width: 0; border-radius: 99px; background: var(--grad); box-shadow: 0 0 16px rgba(56, 189, 248, .6); transition: width 1.6s cubic-bezier(.2, .8, .2, 1); }
+    .learning-note { margin-top: 28px; color: var(--gray); font-size: .92rem; }
+
+    /* Contact */
+    .contact-grid { display: grid; grid-template-columns: .85fr 1.15fr; gap: 56px; }
+    .contact-list { list-style: none; display: grid; gap: 18px; align-content: start; }
+    .contact-list a { display: flex; align-items: center; gap: 18px; padding: 16px 20px; background: var(--card); border: 1px solid var(--line); border-radius: 18px; font-weight: 500; transition: transform .3s, border-color .3s, box-shadow .3s; }
+    .contact-list a:hover { transform: translateX(6px); border-color: rgba(56, 189, 248, .6); box-shadow: 0 0 30px rgba(56, 189, 248, .15); }
+    .contact-list i { width: 48px; height: 48px; border-radius: 14px; display: grid; place-items: center; background: var(--grad); font-size: 1.2rem; flex-shrink: 0; }
+    form { display: grid; gap: 20px; background: var(--card); border: 1px solid var(--line); border-radius: 22px; padding: 36px; }
+    label { font-weight: 500; font-size: .92rem; display: grid; gap: 8px; }
+    input, textarea { font: inherit; padding: 14px 18px; border: 1px solid var(--line); border-radius: 12px; background: var(--bg); color: var(--text); width: 100%; transition: border-color .25s, box-shadow .25s; }
+    input:focus, textarea:focus { outline: none; border-color: var(--purple); box-shadow: 0 0 0 4px rgba(124, 58, 237, .25); }
+    textarea { min-height: 150px; resize: vertical; }
+    form .btn { justify-self: start; }
+    .form-note { font-size: .9rem; color: var(--gray); min-height: 1.4em; }
+
+    footer { padding: 36px 0; text-align: center; border-top: 1px solid var(--line); color: var(--gray); font-size: .92rem; }
+
+    @media (max-width: 900px) {
+      section { padding: 80px 0; }
+      .hero-grid, .about-grid, .skills-grid, .contact-grid { grid-template-columns: 1fr; gap: 48px; }
+      .hero-visual { order: 2; }
+      .menu-btn { display: block; }
+      .nav-links { position: absolute; top: 72px; left: 0; right: 0; flex-direction: column; gap: 0; background: rgba(10, 10, 15, .96); backdrop-filter: blur(16px); border-bottom: 1px solid var(--line); max-height: 0; overflow: hidden; transition: max-height .4s ease; }
+      .nav-links.open { max-height: 360px; }
+      .nav-links a { display: block; padding: 16px 4%; }
+      .nav-links a::after { display: none; }
+      .panel, form { padding: 26px; }
+    }
+    /* Motion: the visitor's system setting is the default, and the footer toggle overrides it */
+    html[data-motion="reduced"] { scroll-behavior: auto; }
+    html[data-motion="reduced"] *, html[data-motion="reduced"] *::before, html[data-motion="reduced"] *::after { animation: none !important; transition-duration: .01ms !important; }
+    html[data-motion="reduced"] .fade-up { opacity: 1; transform: none; }
+    /* Fallback if JavaScript is off */
+    @media (prefers-reduced-motion: reduce) {
+      html:not([data-motion]) { scroll-behavior: auto; }
+      html:not([data-motion]) *, html:not([data-motion]) *::before, html:not([data-motion]) *::after { animation: none !important; transition-duration: .01ms !important; }
+      html:not([data-motion]) .fade-up { opacity: 1; transform: none; }
+    }
+    .motion-toggle { margin-top: 14px; background: none; border: 1px solid rgba(255, 255, 255, .18); color: var(--gray); font: 500 .85rem 'Poppins', sans-serif; padding: 8px 18px; border-radius: 99px; cursor: pointer; transition: border-color .25s, color .25s; }
+    .motion-toggle:hover { border-color: var(--blue); color: var(--text); }
+    .motion-toggle i { margin-right: 8px; color: var(--blue); }
+  </style>
+</head>
+<body>
+
+  <header>
+    <nav class="container" aria-label="Main navigation">
+      <a href="#home" class="logo" aria-label="Marcelinho, home">M.</a>
+      <button class="menu-btn" id="menuBtn" aria-label="Toggle menu" aria-expanded="false" aria-controls="navLinks"><span></span><span></span><span></span></button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section id="home" class="hero">
+      <div class="container hero-grid">
+        <div class="fade-up">
+          <h1>Hi, I'm <span class="grad-text">Marcelinho</span></h1>
+          <p>Frontend Developer crafting fast, modern websites for businesses. Currently learning backend to become Full Stack.</p>
+          <div class="cta-row">
+            <a href="#projects" class="btn btn-primary"><i class="fa-solid fa-briefcase"></i> View My Work</a>
+            <a href="#contact" class="btn btn-ghost"><i class="fa-regular fa-comment-dots"></i> Let's Talk</a>
+          </div>
+        </div>
+        <!-- Illustration placeholder: swap the .code-card for an <img> or SVG; the glow stays behind it -->
+        <div class="hero-visual fade-up" style="--d:.2s">
+          <div class="glow" aria-hidden="true"></div>
+          <div class="code-card" role="img" aria-label="Illustration of code in an editor window">
+            <div class="code-bar"><i></i><i></i><i></i></div>
+<div class="code-body"><span class="c">// marcelinho.js</span>
+<span class="k">const</span> <span class="f">developer</span> = {
+  name: <span class="s">"Marcelinho"</span>,
+  location: <span class="s">"Enugu, Nigeria"</span>,
+  stack: [<span class="s">"HTML"</span>, <span class="s">"CSS"</span>, <span class="s">"JS"</span>, <span class="s">"React"</span>],
+  learning: [<span class="s">"Node"</span>, <span class="s">"Express"</span>, <span class="s">"MongoDB"</span>],
+  goal: <span class="s">"Full Stack"</span>
+};</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="container about-grid">
+        <div class="photo-wrap fade-up">
+          <figure class="photo-frame">
+            <i class="fa-solid fa-user" aria-hidden="true"></i>
+             <img src="img/image.png" alt="Portrait of Marcelinho">
+          </figure>
+        </div>
+        <div class="about-text fade-up" style="--d:.15s">
+          <h2>About <span class="grad-text">me</span></h2>
+          <p>I'm Marcelinho, a Frontend Developer based in Enugu. I love turning ideas into beautiful, fast websites that help businesses grow. I just deployed my first gym website, PowerHouse Fitness. Now I'm leveling up to backend to build complete products.</p>
+          <div class="about-meta">
+            <span><i class="fa-solid fa-location-dot"></i>Enugu, Nigeria</span>
+            <span><i class="fa-solid fa-code"></i>Frontend, moving to Full Stack</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <div class="container">
+        <h2 class="fade-up">Featured <span class="grad-text">projects</span></h2>
+        <p class="section-intro fade-up">Websites I've built and shipped.</p>
+        <div class="project-grid">
+          <article class="card fade-up">
+            <div class="card-thumb" aria-hidden="true"><i class="fa-solid fa-dumbbell"></i></div>
+            <div class="card-body">
+              <h3>PowerHouse Fitness Gym</h3>
+              <div class="tags"><span>HTML</span><span>CSS</span><span>JS</span></div>
+              <p>A modern gym landing page for a fitness brand in Enugu.</p>
+              <div class="card-links">
+                <a href="https://powerhouse-fitness-pi.vercel.app/" target="_blank" rel="noopener"><i class="fa-solid fa-arrow-up-right-from-square"></i> Live Link</a>
+                <a href="https://github.com/gith-msn10" target="_blank" rel="noopener"><i class="fa-brands fa-github"></i> GitHub</a>
+              </div>
+            </div>
+          </article>
+                    <article class="card fade-up" style="--d:.12s">
+            <div class="card-thumb" aria-hidden="true"><i class="fa-solid fa-graduation-cap"></i></div>
+            <div class="card-body">
+              <h3>Marist College Website</h3>
+              <div class="tags"><span>HTML</span><span>CSS</span><span>JS</span></div>
+              <p>A clean, responsive website for Marist College Umuchigbo, Emene, Enugu.</p>
+              <div class="card-links">
+                <a href="https://marist-college-website.vercel.app/" target="_blank" rel="noopener"><i class="fa-solid fa-arrow-up-right-from-square"></i> Live Link</a>
+                <a href="https://github.com/gith-msn10" target="_blank" rel="noopener"><i class="fa-brands fa-github"></i> GitHub</a>
+              </div>
+            </div>
+          </article>
+          <article class="card fade-up" style="--d:.24s">
+            <div class="card-thumb" aria-hidden="true"><i class="fa-solid fa-hotel"></i></div>
+            <div class="card-body">
+              <h3>De Playmaker Suites</h3>
+              <div class="tags"><span>React</span><span>Tailwind</span><span>Vite</span></div>
+              <p>A modern 4-star hotel website in Enugu with room showcases and booking and contact features.</p>
+              <div class="card-links">
+                <a href="https://de-playmaker-suites.vercel.app/" target="_blank" rel="noopener"><i class="fa-solid fa-arrow-up-right-from-square"></i> Live Link</a>
+                <a href="https://github.com/gith-msn10" target="_blank" rel="noopener"><i class="fa-brands fa-github"></i> GitHub</a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills">
+      <div class="container">
+        <h2 class="fade-up">My <span class="grad-text">skills</span></h2>
+        <p class="section-intro fade-up">What I build with today, and what I'm learning next.</p>
+        <div class="skills-grid">
+          <div class="panel fade-up">
+            <h3>Frontend Mastery</h3>
+            <ul class="pills">
+              <li><i class="fa-brands fa-html5"></i>HTML5</li>
+              <li><i class="fa-brands fa-css3-alt"></i>CSS3</li>
+              <li><i class="fa-brands fa-js"></i>JavaScript</li>
+              <li><i class="fa-brands fa-react"></i>React</li>
+              <li><i class="fa-brands fa-git-alt"></i>Git</li>
+              <li><i class="fa-brands fa-github"></i>GitHub</li>
+              <li><i class="fa-solid fa-cloud-arrow-up"></i>Vercel</li>
+            </ul>
+          </div>
+          <div class="panel learning-panel fade-up" style="--d:.15s">
+            <h3>Currently Learning</h3>
+            <!-- Set each data-level to your real progress -->
+            <div class="bar-row">
+              <div class="bar-head"><span>Node.js</span><span>20%</span></div>
+              <div class="bar" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" aria-label="Node.js progress"><div class="bar-fill" data-level="20"></div></div>
+            </div>
+            <div class="bar-row">
+              <div class="bar-head"><span>Express</span><span>10%</span></div>
+              <div class="bar" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" aria-label="Express progress"><div class="bar-fill" data-level="10"></div></div>
+            </div>
+            <div class="bar-row">
+              <div class="bar-head"><span>MongoDB</span><span>10%</span></div>
+              <div class="bar" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" aria-label="MongoDB progress"><div class="bar-fill" data-level="10"></div></div>
+            </div>
+            <p class="learning-note">Backend overall: about 20%.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container">
+        <h2 class="fade-up">Let's work <span class="grad-text">together</span></h2>
+        <p class="section-intro fade-up">Have a project or an opportunity? Send a message and I'll reply soon.</p>
+        <div class="contact-grid">
+          <ul class="contact-list fade-up">
+            <li><a href="mailto:deplaymaker19@gmail.com"><i class="fa-solid fa-envelope"></i><span>deplaymaker19@gmail.com</span></a></li>
+            <!-- Replace the number with your WhatsApp number in international format, no + or spaces -->
+            <li><a href="https://wa.me/2349069343206" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i><span>Chat on WhatsApp</span></a></li>
+            <li><a href="https://github.com/gith-msn10" target="_blank" rel="noopener"><i class="fa-brands fa-github"></i><span>gith-msn10</span></a></li>
+          </ul>
+          <form id="contactForm" class="fade-up" style="--d:.15s" action="mailto:marcelinho.dev@gmail.com" method="post" enctype="text/plain">
+            <label>Name <input type="text" name="name" required autocomplete="name"></label>
+            <label>Email <input type="email" name="email" required autocomplete="email"></label>
+            <label>Message <textarea name="message" required></textarea></label>
+            <button type="submit" class="btn btn-primary"><i class="fa-solid fa-paper-plane"></i> Send message</button>
+            <p class="form-note" id="formNote" role="status"></p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>Built by Marcelinho 2026</p>
+      <button type="button" class="motion-toggle" id="motionToggle" aria-pressed="false"><i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true"></i><span>Animations: on</span></button>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const btn = document.getElementById('menuBtn');
+    const links = document.getElementById('navLinks');
+    function setMenu(open) {
+      links.classList.toggle('open', open);
+      btn.classList.toggle('open', open);
+      btn.setAttribute('aria-expanded', open);
+    }
+    btn.addEventListener('click', () => setMenu(!links.classList.contains('open')));
+    links.addEventListener('click', e => { if (e.target.tagName === 'A') setMenu(false); });
+
+    // Fade-up on scroll, and progress bars fill when they appear
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('visible');
+        entry.target.querySelectorAll('.bar-fill').forEach(f => { f.style.width = f.dataset.level + '%'; });
+        io.unobserve(entry.target);
+      });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.fade-up').forEach(el => io.observe(el));
+
+    // Motion preference: saved choice first, then the system setting
+    const root = document.documentElement;
+    const motionBtn = document.getElementById('motionToggle');
+    function setMotion(mode, save) {
+      root.dataset.motion = mode;
+      motionBtn.setAttribute('aria-pressed', mode === 'reduced');
+      motionBtn.querySelector('span').textContent = mode === 'reduced' ? 'Animations: off' : 'Animations: on';
+      if (save) { try { localStorage.setItem('motion', mode); } catch (e) {} }
+    }
+    let savedMotion = null;
+    try { savedMotion = localStorage.getItem('motion'); } catch (e) {}
+    setMotion(savedMotion || (matchMedia('(prefers-reduced-motion: reduce)').matches ? 'reduced' : 'full'), false);
+    motionBtn.addEventListener('click', () => setMotion(root.dataset.motion === 'reduced' ? 'full' : 'reduced', true));
+
+    document.getElementById('contactForm').addEventListener('submit', () => {
+      document.getElementById('formNote').textContent = 'Opening your email app to send the message.';
+    });
+  </script>
+</body>
+</html>
