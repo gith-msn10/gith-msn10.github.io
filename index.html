@@ -146,6 +146,7 @@
     @media (max-width: 900px) {
       section { padding: 80px 0; }
       .hero-grid, .about-grid, .skills-grid, .contact-grid { grid-template-columns: 1fr; gap: 48px; }
+      .hero-grid > * { min-width: 0; }
       .hero-visual { order: 2; }
       .menu-btn { display: block; }
       .nav-links { position: absolute; top: 72px; left: 0; right: 0; flex-direction: column; gap: 0; background: rgba(10, 10, 15, .96); backdrop-filter: blur(16px); border-bottom: 1px solid var(--line); max-height: 0; overflow: hidden; transition: max-height .4s ease; }
@@ -154,6 +155,9 @@
       .nav-links a::after { display: none; }
       .panel, form { padding: 26px; }
     }
+       @media (max-width: 480px) {
+  .code-body { font-size: .72rem; padding: 20px 16px 24px; }
+}
     /* Motion: the visitor's system setting is the default, and the footer toggle overrides it */
     html[data-motion="reduced"] { scroll-behavior: auto; }
     html[data-motion="reduced"] *, html[data-motion="reduced"] *::before, html[data-motion="reduced"] *::after { animation: none !important; transition-duration: .01ms !important; }
